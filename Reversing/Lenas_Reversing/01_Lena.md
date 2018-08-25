@@ -1,21 +1,15 @@
-
-
-
-
-
-
 # Lena's Reversing for Newbies #01
 
-#### 1. 문제
+### 1. 문제
 
 - 문제: OllyDbg+Assembler+Patching a basic reverseme
 - [파일다운로드](https://tuts4you.com/download/122/)
 
 
 
-#### 2. 파일 실행
+### 2. 파일 실행
 
-##### 1) reverseMe.exe 실행
+#### 1) reverseMe.exe 실행
 
 - "Evaluation period out of date. Purchase new license" 메시지박스 출력
 
@@ -23,15 +17,15 @@
 
 
 
-#### 3.  OllyDbg로 어셈블리코드 분석
+### 3.  OllyDbg로 어셈블리코드 분석
 
-##### 1) 메시지박스 문자열 검색
+#### 1) 메시지박스 문자열 검색
 
 <img src="img/01_string.png">
 
 
 
-##### 2) 메시지박스 출력 전 후 어셈블리코드 분석
+#### 2) 메시지박스 출력 전 후 어셈블리코드 분석
 
 - 1)의 문자열을 마우스 더블클릭하여 CPU창으로 이동 
 
@@ -69,7 +63,7 @@
 
 
 
-##### 3) Z 플래그를 임의 설정 하여 reverseM.0040109A로 분기(메시지박스 출력 안되도록) 
+#### 3) Z 플래그를 임의 설정 하여 reverseM.0040109A로 분기(메시지박스 출력 안되도록) 
 
 - JNZ SHORT reverseM.0040109A에 브레이크 포인트 설정
 - Z 플래그를 1에서 0으로 변경(마우스 더블클릭하면 변경됨)
@@ -79,7 +73,7 @@
 
 
 
-##### 4) reverseM.0040109A로 분기 후 어셈블리코드 분석 
+#### 4) reverseM.0040109A로 분기 후 어셈블리코드 분석 
 
 - ReadFile() 함수 호출 부분에 브레이크포인트 설정 후 브레이크포인트까지 코드 실행
   - [ReadFile() 함수 msdn설명](https://docs.microsoft.com/en-us/windows/desktop/api/fileapi/nf-fileapi-readfile)
@@ -105,7 +99,7 @@
 
 
 
-##### 5) reverseM.004010F7로 분기 
+#### 5) reverseM.004010F7로 분기 
 
 - reverseM.004010F7로 분기
 
@@ -121,7 +115,7 @@
 
 
 
-##### 6)  디버거를 다시 시작하여 ReadFile 함수 호출 어셈블리코드까지 실행
+#### 6)  디버거를 다시 시작하여 ReadFile 함수 호출 어셈블리코드까지 실행
 
 - 브레이크포인트 설정
 
@@ -137,7 +131,7 @@
 
 
 
-##### 7) reverseM.004010B4으로 분기 
+#### 7) reverseM.004010B4으로 분기 
 
 - reverseM.004010B4로 분기하여 코드를 어셈블리코드를 따라 실행
 - CMP DWORD PTR DS:[0x402173],0x10
@@ -155,7 +149,7 @@
 
 
 
-##### 8) S 플래그를 0으로 임의설정하여 reverseM.004010F7로 분기하지 않고 다음 어셈블리코드 진행
+#### 8) S 플래그를 0으로 임의설정하여 reverseM.004010F7로 분기하지 않고 다음 어셈블리코드 진행
 
 - MOV AL,BYTE PTR DS:[EBX+0x40211A] 코드를 실행할 차례이나 코드 진행 화살표를 보면 화살표가 자기 자신을 가르킴
   - 반복 문인 것을 알 수 있음
@@ -184,7 +178,7 @@
   <img src="img/01_cmp_esi.png">
 
 
-##### 9) S 플래그를 0으로 임의설정하여 reverseM.004010F7로 분기하지 않고 reverseM.00401205로 분기
+#### 9) S 플래그를 0으로 임의설정하여 reverseM.00401205로 분기
 
 - JMP reverseM.00401205: reverseM.00401205로 분기
 
@@ -198,12 +192,14 @@
 
 
 
-#### 4. 3.9)의 메시지박스가 출력되도록 어셈블리 코드를 패치
+### 4. 3.9)의 메시지박스가 출력되도록 어셈블리 코드를 패치
 
-- 플래그를 임의 설정하지 않고 원하는 결과가 나오도록 코드를 패치 하기 위해 OllyDbg 다시 시작
+- 플래그를 임의 설정하지 않고 원하는 결과가 나오도록 코드를 패치 하기 위해 OllyDbg 다시 시작(Ctrl+F9)
 - 위의 분석 과정을 통해 브레이크포인트 설정되어 있음
 
 <img src="img/01_breakpoint_topatch.png">
 
 
+
+#### 1) 첫 번째 브레이크포인트까지 코드 실행(F9)
 
