@@ -79,7 +79,7 @@
 
 
 
-#####4) reverseM.0040109A로 분기 후 어셈블리코드 분석 
+##### 4) reverseM.0040109A로 분기 후 어셈블리코드 분석 
 
 - ReadFile() 함수 호출 부분에 브레이크포인트 설정 후 브레이크포인트까지 코드 실행
   - [ReadFile() 함수 msdn설명](https://docs.microsoft.com/en-us/windows/desktop/api/fileapi/nf-fileapi-readfile)
@@ -105,7 +105,7 @@
 
 
 
-#####5) reverseM.004010F7로 분기 
+##### 5) reverseM.004010F7로 분기 
 
 - reverseM.004010F7로 분기
 
@@ -203,7 +203,7 @@
 - 플래그를 임의 설정하지 않고 원하는 결과가 나오도록 코드를 패치 하기 위해 OllyDbg 다시 시작
 - 위의 분석 과정을 통해 브레이크포인트 설정되어 있음
 
-<img src="img/01_breakpoint_topatch.png" align="center">
+<img src="img/01_breakpoint_topatch.png">
 
 
 
