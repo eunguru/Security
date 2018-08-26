@@ -1,6 +1,4 @@
-# Security
-
-### [Lena's Reversing for Newbies]
+# Lena's Reversing for Newbies
 
 - [파일 다운로드](https://tuts4you.com/e107_plugins/download/download.php?view.2876)
 
