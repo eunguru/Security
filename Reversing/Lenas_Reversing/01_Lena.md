@@ -13,7 +13,7 @@
 
 - "Evaluation period out of date. Purchase new license" 메시지박스 출력
 
-<img src="img/01_messagebox.png">
+<img src="img/01/01_messagebox.png">
 
 
 
@@ -21,7 +21,7 @@
 
 #### 1) 메시지박스 문자열 검색
 
-<img src="img/01_string.png">
+<img src="img/01/01_string.png">
 
 
 
@@ -36,7 +36,7 @@
 
   - CreateFileA() 함수 호출 부분에 브레이크포인트 설정(F2) 후 OllyDbg 재실행(Ctrl+F2, F9)
 
-  <img src="img/01_messagebox_cpu.png">
+  <img src="img/01/01_messagebox_cpu.png">
 
 
 
@@ -51,7 +51,7 @@
 
 - CreateFileA() 함수 호출 후 리턴값은 EAX 레지스터 값이며, reverseMe.exe 경로에 "Keyfile.dat"파일이 없기때문에 FFFFFFFF 리턴
 
-<img src="img/01_createfile_fail_reg.png">
+<img src="img/01/01_createfile_fail_reg.png">
 
 - CMP EAX,-0x1: 리턴값인 EAX 레지스터 값이  -0x1인지 비교
   - EAX가 -1이므로 CMP 결과는 0이 됨 -> Z 플래그가 1로 설정된 것을 알 수 있음
@@ -69,7 +69,7 @@
 - Z 플래그를 1에서 0으로 변경(마우스 더블클릭하면 변경됨)
 - reverseM.0040109A로 분기
 
-<img src="img/01_jump_0040109A.png">
+<img src="img/01/01_jump_0040109A.png">
 
 
 
@@ -86,9 +86,9 @@
 - ReadFile() 함수 호출 후 리턴값은 EAX 레지스터 값이며 실패를 나타내는 0값을 리턴
   - Z플래그가 1로 설정됨
 
-<img src="img/01_readfile_return_check.png">
+<img src="img/01/01_readfile_return_check.png">
 
-<img src="img/01_readfile_return_reg.png">
+<img src="img/01/01_readfile_return_reg.png">
 
 - TEST EAX, EAX: 두 오퍼렌드를 AND 연산함
   - EAX가 0이므로 AND 연산 결과도 0
@@ -103,15 +103,14 @@
 
 - reverseM.004010F7로 분기
 
-<img src="img/01_004010F7.png">
+<img src="img/01/01_004010F7.png">
 
 - 분기 후 메시지박스 출력 후 프로그램 종료(MessageBoxA() -> ExitProcess())
 
   - 메시지박스 내용: "Keyfile is not valid. Sorry."
   - 메시지박스 내용으로 보아 리버싱에 실패했음을 알 수 있음
 
-
-<img src="img/01_key_invalid_msgbox.png">
+<img src="img/01/01_key_invalid_msgbox.png">
 
 
 
@@ -119,12 +118,12 @@
 
 - 브레이크 포인트 설정
 
-<img src="img/01_breakpoint.png">
+<img src="img/01/01_breakpoint.png">
 
 - 첫 번째 브레이크 포인트까지 코드 진행 후 3)번과 같이 Z플래그 임의 설정하여 reverseM.0040109A로 분기
 - ReadFile()함수 호출 후 리턴값을  테스트하는 코드  실행, reverseM.00401B0 전 코드까지 진행
 
-<img src="img/01_readfile_called.png">
+<img src="img/01/01_readfile_called.png">
 
 - reverseM.00401B0 코드 실행 전 Z 플래그를 임의 설정하여 reverseM.00401B4로 분기
   - JNZ SHORT reverseM.004010B4: Not Zero이면 reverseM.004010B4으로 분기
@@ -145,7 +144,7 @@
   - S 플래그가 1로 설정됨
     - S 플래그: 연산결과 음수일때 1이 설정됨
 
-<img src="img/01_cmp_sflag_set.png">
+<img src="img/01/01_cmp_sflag_set.png">
 
 
 
@@ -154,7 +153,7 @@
 - MOV AL,BYTE PTR DS:[EBX+0x40211A] 코드를 실행할 차례이나 코드 진행 화살표를 보면 화살표가 자기 자신을 가르킴
   - 반복 문인 것을 알 수 있음
 
-<img src="img/01_loop.png">
+<img src="img/01/01_loop.png">
 
 - 코드 실행 범위 아래 어셈블리 코드에 브레이크 포인트를 설정 하고 브레이크 포인트까지 코드 진행
 
@@ -175,20 +174,20 @@
       - 004010B6    .  33F6                     XOR ESI,ESI: 초기화(XOR은 값이 같으면 0, 다르면 1)
       - 004010CF    .  46                       INC ESI: ESI값 1증가
 
-  <img src="img/01_cmp_esi.png">
+  <img src="img/01/01_cmp_esi.png">
 
 
 #### 9) S 플래그를 0으로 임의설정하여 reverseM.00401205로 분기
 
 - JMP reverseM.00401205: reverseM.00401205로 분기
 
-<img src="img/01_jump_00401205.png">
+<img src="img/01/01_jump_00401205.png">
 
 - 분기 후 메시지박스 출력 후 프로그램 종료(MessageBoxA() -> ExitProcess())
   - 메시지박스 출력 문자열: "You really did it! Congrats !!!"
   - 메시지박스 내용으로 보아 리버싱에 성공했음을 알 수 있음
 
-<img src="img/01_success_msg.png">
+<img src="img/01/01_success_msg.png">
 
 
 
@@ -198,7 +197,7 @@
 - 플래그를 임의 설정하지 않고 원하는 결과가 나오도록 코드를 패치 하기 위해 OllyDbg 다시 시작(Ctrl+F9)
 - 위의 분석 과정을 통해 브레이크포인트 설정되어 있음
 
-<img src="img/01_breakpoint_topatch.png">
+<img src="img/01/01_breakpoint_topatch.png">
 
 
 
@@ -206,7 +205,7 @@
 
 - 첫 번째 브레이크 포인트까지 이동 후 JNZ를  JMP로 코드패치하여 reverseM.0040109A로 분기
 
-<img src="img/01_1st_patch.png">
+<img src="img/01/01_1st_patch.png">
 
 - reverseM.0040109A로 분기
 
@@ -217,7 +216,7 @@
 - reverseM.0040109A로 분기한 후 F8을 눌러 코드를 실행하거나 F9를 눌러 미리 설정한 브레이크 포인트까지 실행해도 됨
 - JNZ를  JMP로 코드패치하여 reverseM.004010B4로 분기
 
-<img src="img/01_2nd_patch.png">
+<img src="img/01/01_2nd_patch.png">
 
 
 
@@ -226,7 +225,7 @@
 - 브레이크포인트까지 실행하여 JL SHORT reverseM.004010F7을 NOP로 코드패치
   - NOP: No Operation, 아무것도 하지 않음
 
-<img src="img/01_3rd_patch.png">
+<img src="img/01/01_3rd_patch.png">
 
 
 
@@ -235,7 +234,7 @@
 - 3)에서와 마찬가지로 JL SHORT reverseM.004010F7를 NOP로 코드 패치
 - F8을 눌러 다음 코드 실행 전까지 진행
 
-<img src="img/01_4th_patch.png">
+<img src="img/01/01_4th_patch.png">
 
 - 3.9)에서 확인했듯이 JMP reverseM.00401205 코드를 실행하여 reverseM.00401205로 분기하는 경우
 
@@ -249,7 +248,7 @@
 
 - 총 4군데의 코드 패치를 수행함
 
-<img src="img/01_patches.png">
+<img src="img/01/01_patches.png">
 
 
 
@@ -257,19 +256,19 @@
 
 - 변경한 부분을 마우스 드래그하여 선택 후 마우스 우클릭하여 컨텍스트메뉴에서 Copy to excitable - Selection 메뉴 선택
 
-<img src="img/01_copy_selection.png">
+<img src="img/01/01_copy_selection.png">
 
 - 새로 뜬 창에서 마우스 우클릭하여 컨텍스트메뉴에서 save file 선택
 
-<img src="img/01_savefile1.png">
+<img src="img/01/01_savefile1.png">
 
 - 파일명을 "reverseMe_Crack.exe"로 저장
 
-<img src="img/01_save_file_as.png">
+<img src="img/01/01_save_file_as.png">
 
 - reverseMe_Crack.exe를 실행하면 "You really did it! Congrats !!!" 메시지박스가 출력
 
-  <img src="img/01_crack_file.png">
+  <img src="img/01/01_crack_file.png">
 
 - 코드패치 끝 :)
 
